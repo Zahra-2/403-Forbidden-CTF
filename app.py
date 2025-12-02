@@ -6,7 +6,7 @@ app = Flask(__name__)
 # CONSTANTS
 # ----------------------------
 USERNAME = "mark"
-PASSWORD = "rockyman"        # password included inside rockyou wordlist
+PASSWORD = "rockyou"        # password included inside rockyou wordlist
 FLAG = "SDC{ADMIN_ZONE_GRANTED}"
 ALLOWED_IP = "127.0.0.1"     # internal workstation IP
 
@@ -103,4 +103,5 @@ import os
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=False)
+
 
