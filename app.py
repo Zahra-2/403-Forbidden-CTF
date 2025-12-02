@@ -69,19 +69,15 @@ def admin_panel():
             {"WWW-Authenticate": 'Basic realm="Neo-402"'}
         )
 
-    # --- (2) Get user's IP address ---
-    # Priority:
-    #   1) X-Forwarded-For  (proxy user can manipulate this)
-    #   2) request.remote_addr (real IP)
-    client_ip = request.headers.get("X-Forwarded-For", request.remote_addr)
+xff = request.headers.get("X-Forwarded-For", request.remote_addr)
 
+client_ip = xff.split(",")[0].strip()
 
-    # --- (3) If credentials are correct but IP is NOT internal ---
-    if client_ip != ALLOWED_IP:
-        return Response(
-            "Access blocked. Internal workstation required.",
-            403
-        )
+if client_ip != ALLOWED_IP:
+    return Response(
+        "Access blocked. Internal workstation required.",
+        403
+    )
 
     # --- (4) Everything is correct → show the flag ---
     return render_template("admin.html", flag=FLAG)
@@ -103,6 +99,7 @@ import os
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=False)
+
 
 
 
