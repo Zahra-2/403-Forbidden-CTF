@@ -1,0 +1,20 @@
+[2025-01-12 08:02:11] INFO  :: Incoming GET request to /gateway from 10.0.14.12 (Mark-Workstation)
+[2025-01-12 08:02:12] INFO  :: Access denied: /admin — no credentials provided
+[2025-01-12 08:03:21] INFO  :: Mark attempted basic-auth login on /admin
+[2025-01-12 08:03:21] WARN  :: Invalid password for user 'mark'
+[2025-01-12 08:04:55] INFO  :: GET /robots.txt requested by Mark
+[2025-01-12 08:06:01] INFO  :: Mark navigated to /node402/
+[2025-01-12 08:08:14] WARN  :: Multiple unauthorized attempts detected from 10.0.14.12
+[2025-01-12 08:09:44] INFO  :: Mark fetched static/noise resource
+[2025-01-12 08:12:10] WARN  :: Repeated failed admin authentications from Mark-Workstation
+[2025-01-12 08:14:23] INFO  :: Unexpected header pattern in request from 10.0.14.12
+[2025-01-12 08:15:40] INFO  :: Mark accessed /gateway again (session reset)
+[2025-01-12 08:17:32] WARN  :: Suspicious request signature from internal workstation
+[2025-01-12 08:19:55] INFO  :: GET /logs/system.log requested by Mark
+[2025-01-12 08:22:18] INFO  :: Mark attempted authentication fallback for user 'mark'
+[2025-01-12 08:22:18] WARN  :: Credential mismatch — logging attempt
+[2025-01-12 08:24:03] INFO  :: /admin accessed without proper authorization header
+[2025-01-12 08:26:11] WARN  :: Unauthorized administrative probe from Mark-Workstation
+[2025-01-12 08:28:40] INFO  :: Mark revisited /node402/ with bypassed cache
+[2025-01-12 08:30:52] INFO  :: Elevated authentication failure threshold reached — user: Mark
+[2025-01-12 08:32:14] INFO  :: Internal network request from 10.0.14.12 flagged for review

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Lightning Flag</title>
+<style>
+body, html {
+    margin:0;
+    padding:0;
+    overflow:hidden;
+    height:100%;
+    background:black;
+}
+
+#lightningCanvas {
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+}
+
+.flag {
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    font-family:'Courier New', monospace;
+    font-size:2rem;
+    color:#b200ff; /* Electric Purple */
+    user-select:all; /* قابل للنسخ */
+    text-shadow:0 0 6px #b200ff, 0 0 12px #ff6fff; /* لمعة بسيطة */
+}
+</style>
+</head>
+<body>
+
+<canvas id="lightningCanvas"></canvas>
+<div class="flag">{{ flag }}</div>
+
+<script>
+const canvas = document.getElementById('lightningCanvas');
+const ctx = canvas.getContext('2d');
+
+function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resize);
+resize();
+
+function drawLightning() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    
+    // وميض خفيف
+    if(Math.random() < 0.01){
+        ctx.fillStyle = 'rgba(178,0,255,0.08)';  
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+    }
+
+    // خطوط رعد أقل كثافة
+    for(let i=0; i<2; i++){
+        ctx.strokeStyle = 'rgba(178,0,255,0.05)';
+        ctx.beginPath();
+        let x = Math.random()*canvas.width;
+        let y = 0;
+        ctx.moveTo(x,y);
+        for(let j=0; j<canvas.height; j+=25){
+            x += (Math.random()-0.5)*60;
+            y += 25;
+            ctx.lineTo(x,y);
+        }
+        ctx.stroke();
+    }
+
+    requestAnimationFrame(drawLightning);
+}
+
+drawLightning();
+</script>
+
+</body>
+</html>
