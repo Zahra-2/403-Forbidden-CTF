@@ -61,25 +61,24 @@ def admin_panel():
     # --- (1) Basic Auth check ---
     auth = request.authorization
 
-    # If username OR password are wrong → deny
     if not (auth and auth.username == USERNAME and auth.password == PASSWORD):
         return Response(
             render_template("unauthorized.html"),
             401,
-            {"WWW-Authenticate": 'Basic realm="Neo-402"'}
+            {"WWW-Authenticate": 'Basic realm=\"Neo-402\"'}
         )
 
-xff = request.headers.get("X-Forwarded-For", request.remote_addr)
+    # --- (2) IP check with X-Forwarded-For bypass ---
+    xff = request.headers.get("X-Forwarded-For", request.remote_addr)
+    client_ip = xff.split(",")[0].strip()
 
-client_ip = xff.split(",")[0].strip()
+    if client_ip != ALLOWED_IP:
+        return Response(
+            "Access blocked. Internal workstation required.",
+            403
+        )
 
-if client_ip != ALLOWED_IP:
-    return Response(
-        "Access blocked. Internal workstation required.",
-        403
-    )
-
-    # --- (4) Everything is correct → show the flag ---
+    # --- (3) All good → show flag ---
     return render_template("admin.html", flag=FLAG)
 
 
@@ -96,10 +95,6 @@ def noise():
 # ----------------------------
 import os
 
-if __name__ == "__main__":
+if name == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=False)
-
-
-
-
